@@ -232,11 +232,6 @@ async def games(ctx):
 
 
 @bot.command()
-async def archangel2(ctx):
-    await ctx.send("You know what they say?.... He who hesitates, disintegrates!")
-
-
-@bot.command()
 async def farts(ctx):
     await ctx.send("Turns out that Carter's farts smell good. So if you get the chance then give them a sniff.")
 
