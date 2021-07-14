@@ -50,6 +50,7 @@ async def on_message(message):
         role_3000 = get(guild.roles, id=758331987324436522)
         role_mods = get(guild.roles, id=748807052440109057)
         role_admin = get(guild.roles, id=783748057351192626)
+        role_trial = get(guild.roles, id=864528000418578473)
         channel = discord.utils.get(channels, name=str(message.author.id))
 
         # Embed for the user message
@@ -83,6 +84,7 @@ async def on_message(message):
             role_wicksters: discord.PermissionOverwrite(view_channel=False),
             role_3000: discord.PermissionOverwrite(view_channel=False),
             role_mods: discord.PermissionOverwrite(view_channel=True),
+            role_trial: discord.PermissionOverwrite(view_channel=True),
             role_admin: discord.PermissionOverwrite(view_channel=True)
         }
         # Embed to be sent to modmail log when a new channel si created
