@@ -44,6 +44,7 @@ async def on_message(message):
         channels = await guild.fetch_channels()
         channel2 = bot.get_channel(844527629057916928)  # for modmail log
         # searched_role = get.guild.roles(id=856759954630770699)
+        role_discordmod = discord.utils.get(guild.roles, id=839881498961641483)
         role_id = 752746015412584538
         role_wicksters = get(guild.roles, id=role_id)
         role_3000 = get(guild.roles, id=758331987324436522)
@@ -68,8 +69,8 @@ async def on_message(message):
         embedDM.add_field(name='Link', value='To send a link, just paste the link in the chat.')
 
         # Embed for the mods
-        embedMod = discord.Embed(title='Information for the mods', description='!close [Channel ID]- Closes the text channel'
-                                                                                '\n!DM- To DM the user anonymously \n'
+        embedMod = discord.Embed(title='Information for the mods', description='!jbclose [Channel ID]- Closes the text channel'
+                                                                                '\n!jbDM- To DM the user anonymously \n'
                                                                                 'Mods should remember that any message '
                                                                                 'under 5 characters will not be sent.'
                                                                                ' Please '
@@ -84,10 +85,11 @@ async def on_message(message):
             role_mods: discord.PermissionOverwrite(view_channel=True),
             role_admin: discord.PermissionOverwrite(view_channel=True)
         }
-
+        # Embed to be sent to modmail log when a new channel si created
         embedCha = discord.Embed(title='🎐A new Channel was created🎐', decription=message.author.id, color=0xFFC1E6)
         embedCha.set_author(name=message.author.display_name, icon_url=message.author.avatar_url)
         embedCha.set_thumbnail(url=bot.user.avatar_url)
+        embedCha.add_field(name='Mods please help the above mentioned person. The ID of the person is given below', value=message.author.id)
 
         if channel is None:
             await message.author.send(embed=embedDM)
@@ -95,7 +97,7 @@ async def on_message(message):
             await guild.create_text_channel(name=str(message.author.id), overwrites=overwrites)
             # category = category)
             await channel2.send(embeds=embedCha)
-
+            await channel2.send(f'{role_discordmod.mention} A new Modmail Channel has been created')
         elif channel is not None:
             await channel.send(embed=embedMod)
             await channel.send(embed=embedVar)
@@ -121,12 +123,15 @@ async def dm(ctx, user: discord.User, *, message=None):
 async def close(ctx, channel: discord.TextChannel):
     mbed = discord.Embed(title='Success',
                          description=f'Channel: {channel} has been deleted')
+    mbed.add_field(name=' This Modmail has been closed', value='Mods tag this embed and send the reason/situation for'
+                                                               ' which a member used modmail. Send it below this embed')
     channel = bot.get_channel(844527629057916928)
 
     await channel.send(embed=mbed)
     await ctx.channel.delete()
 
 # --------------------------------------------------------------------------------------------
+
 
 @bot.command()
 async def age(ctx):
@@ -190,11 +195,6 @@ async def minecraft(ctx):
 
 
 @bot.command()
-async def archangel(ctx):
-    await ctx.send("Less than 3! <3")
-
-
-@bot.command()
 async def julia(ctx):
     await ctx.send('Julia is from Ontario and streams on Twitch! You should check her out at https://www.twitch.tv'
                    '/juliaburch.')
@@ -226,11 +226,6 @@ async def sahara(ctx):
 
 
 @bot.command()
-async def kingpanda(ctx):
-    await ctx.send("KingPanda may be young, but he learns quickly and his sword is just as sharp!")
-
-
-@bot.command()
 async def games(ctx):
     await ctx.send("Julia is a variety streamer and plays many games. Such as COD, RE, Outlast, Minecraft and many "
                    "others!")
@@ -257,12 +252,6 @@ async def juliaq2(ctx):
 
 
 @bot.command()
-async def cullen(ctx):
-    await ctx.send("Will he be a mod? YES HE WILL! Twitch heard that he couldn't gamble anymore, so made it that he "
-                   "CAN! monkaS")
-
-
-@bot.command()
 async def mic(ctx):
     await ctx.send("Shure SM7B")
 
@@ -284,16 +273,6 @@ async def where(ctx):
 
 
 @bot.command()
-async def alex(ctx):
-    await ctx.send("Is he actually called Alex? Because the name is aiex. I am confuse. :S")
-
-
-@bot.command()
-async def ashisfine(ctx):
-    await ctx.send("On the 24/03/21 I banned my first person!")
-
-
-@bot.command()
 async def squids(ctx):
     await ctx.send("Julia loves them. They are just the best thing in minecraft. So derpy and cute!")
 
@@ -301,11 +280,6 @@ async def squids(ctx):
 @bot.command()
 async def gam(ctx):
     await ctx.send("RIP GoldenArmourMan He fought well and taught Julia how to parry. F.")
-
-
-@bot.command()
-async def theogbrownie(ctx):
-    await ctx.send("If you need song lyric spam, then TheOGBrownie is your mod!")
 
 
 @bot.command()
@@ -344,11 +318,6 @@ async def professions(ctx):
 
 
 @bot.command()
-async def rollo(ctx):
-    await ctx.send("has a very oversized brain")
-
-
-@bot.command()
 async def betrayal(ctx):
     await ctx.send("https://clips.twitch.tv/ManlyImportantHummingbirdFailFish-E3QzO_UwY1CG7l5V")
 
@@ -366,11 +335,6 @@ async def bigbrainash(ctx):
 @bot.command()
 async def pog(ctx):
     await ctx.send("it truly is POG")
-
-
-@bot.command()
-async def archange2(ctx):
-    await ctx.send("You know what they say?.... He who hesitates, disintegrates!")
 
 
 @bot.command()
@@ -417,31 +381,6 @@ async def sahara1(ctx):
 async def whereislauren(ctx):
     await ctx.send("its always where is lauren but never how is lauren FeelsBadMan")
 
-
-@bot.command(aliases=['7amadi'])
-async def _7amadi(ctx):
-    await ctx.send("amadi is THE weirdo, simps for possibly everyone around him.")
-
-
-@bot.command()
-async def archangel3(ctx):
-    await ctx.send("archangel is the best admin to exist! (yea better than clay)")
-
-
-@bot.command(aliases=['Darth'])
-async def darth(ctx):
-    await ctx.send("This wondeful bot was made by our own mod: DarthBlack")
-
-
-@bot.command(aliases=['Gabe'])
-async def gabe(ctx):
-    await ctx.send("Gabe the Babe is the noicest person in the server.")
-
-
-@bot.command(aliases=['Mck'])
-async def mck(ctx):
-    await ctx.send("mck is tall and will step on you")
-
     
 @bot.command(aliases=['Julialivingwithbf']) 
 async def julialivingwithbf(ctx):
@@ -451,11 +390,7 @@ async def julialivingwithbf(ctx):
 @bot.command(aliases=['Family'])
 async def family(ctx):
     await ctx.send("It's with the family.")
-    
-    
-@bot.command()
-async def nicolas(ctx):
-    await ctx.send("If you have a question about memes or Pokémon, he is your man")
+
 
 # -------------------------------------------------------------------------------------------
 
