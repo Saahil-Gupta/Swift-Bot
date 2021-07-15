@@ -11,7 +11,7 @@ bot = commands.Bot(command_prefix='!jb')
 
 @bot.event
 async def on_ready():
-    await bot.change_presence(activity=discord.Game(name='Prefix for the bot is " !jb "| Made by DarthBlack#2680'))
+    await bot.change_presence(activity=discord.Game(name='DM T Contact Staff | !jbhelp'))
     print('Bot is online and Ready to Go')
 
 
@@ -71,7 +71,8 @@ async def on_message(message):
 
         # Embed for the mods
         embedMod = discord.Embed(title='Information for the mods', description='!jbclose [Channel ID]- Closes the text channel'
-                                                                                '\n!jbDM- To DM the user anonymously \n'
+                                                                                '\n!jbDM @user [message]- '
+                                                                               'To DM the user anonymously \n'
                                                                                 'Mods should remember that any message '
                                                                                 'under 5 characters will not be sent.'
                                                                                ' Please '
@@ -121,7 +122,7 @@ async def dm(ctx, user: discord.User, *, message=None):
 
 
 @bot.command()
-@commands.has_guild_permissions(manage_channels=True)
+@commands.has_guild_permissions(manage_messages=True)
 async def close(ctx, channel: discord.TextChannel):
     mbed = discord.Embed(title='Success',
                          description=f'Channel: {channel} has been deleted')
