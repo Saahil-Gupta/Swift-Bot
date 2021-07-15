@@ -11,7 +11,7 @@ bot = commands.Bot(command_prefix='!jb')
 
 @bot.event
 async def on_ready():
-    await bot.change_presence(activity=discord.Game(name='DM T Contact Staff | !jbhelp'))
+    await bot.change_presence(activity=discord.Game(name='DM to Contact Staff | !jbhelp'))
     print('Bot is online and Ready to Go')
 
 
