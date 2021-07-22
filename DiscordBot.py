@@ -125,7 +125,7 @@ async def dm(ctx, user: discord.User, *, message=None):
 @commands.has_guild_permissions(manage_messages=True)
 async def close(ctx, channel: discord.TextChannel):
     mbed = discord.Embed(title='Success',
-                         description=f'Channel: {channel} has been deleted')
+                         description=f'Channel: {ctx.channel.name} has been deleted')
     mbed.add_field(name=' This Modmail has been closed', value='Mods tag this embed and send the reason/situation for'
                                                                ' which a member used modmail. Send it below this embed')
     channel = bot.get_channel(844527629057916928)
@@ -134,73 +134,49 @@ async def close(ctx, channel: discord.TextChannel):
     await ctx.channel.delete()
 
 # --------------------------------------------------------------------------------------------
-
-
 @bot.command()
-async def age(ctx):
-    await ctx.send('Julia is 20 years old.')
+@commands.has_guild_permissions(manage_messages=True)
+async def warnChannel(ctx, user: discord.User, *, reason=None):
+    guild = ctx.guild
+    channels = await guild.fetch_channels()
+    channel2 = bot.get_channel(844527629057916928)
+    role_id = 752746015412584538
+    role_wicksters = get(guild.roles, id=role_id)
+    role_3000 = get(guild.roles, id=758331987324436522)
+    role_mods = get(guild.roles, id=748807052440109057)
+    role_admin = get(guild.roles, id=783748057351192626)
+    role_trial = get(guild.roles, id=864528000418578473)
+    overwrites={
+        guild.default_role: discord.PermissionOverwrite(view_channel=False),
+        guild.me: discord.PermissionOverwrite(view_channel=True),
+        user: discord.PermissionOverwrite(view_channel=True),
+        role_wicksters: discord.PermissionOverwrite(view_channel=False),
+        role_3000: discord.PermissionOverwrite(view_channel=False),
+        role_trial: discord.PermissionOverwrite(view_channel=True),
+        role_mods: discord.PermissionOverwrite(view_channel=True),
+        role_admin: discord.PermissionOverwrite(view_channel=True)
+    }
+    embedMod = discord.Embed(title = 'Information for the mods', description = '!close [channel ID]- Closes the text channel'
+                                                                               '\n!export- to make a log of the warn channel. It will be exported as a .txt file. Send the txt file to the logs.\n If the issue was resolved, That is Amazing. If it could not be resolved,'
+                                                                               'Send the reason of the issue not being resolved in #Punishments', color = 0x00FF00)
 
+    embedCha = discord.Embed(title='🧨A new Warn Channel was created🧨', decription='Warn Channel', color=0xcccc00)
+    embedCha.set_author(name=user.display_name, icon_url=user.avatar_url)
+    embedCha.set_thumbnail(url=user.avatar_url)
+    embedCha.add_field(name=f'Moderator:{ctx.author.name}', value=f'{user.id} is the ID of the person for whom the warn channel was made.\n Reason: {reason}')
 
-@bot.command()
-async def ruleswhy1(ctx):
-    await ctx.send("Moderators can't manage other languages")
+    embedUser= discord.Embed(title=f"Information for the Warned person-{user}", description='You are being warned! So listen closely to the staff and show some respect.', color=0xFFC1E6)
 
-
-@bot.command()
-async def ruleswhy2(ctx):
-    await ctx.send('Negativity and hate make a horrible place to be.')
-
-
-@bot.command()
-async def ruleswhy3(ctx):
-    await ctx.send("No need to ping her, she reads the chat if she's free.")
-
-
-@bot.command()
-async def ruleshwy4(ctx):
-    await ctx.send("Being excessively creepy or flirty is not acceptable.")
-
-
-@bot.command()
-async def love(ctx):
-    await ctx.send('Love yourself and keep it to yourself please!')
-
-
-@bot.command()
-async def birthday(ctx):
-    await ctx.send('07/12/2000 12/07/2000 2000/12/07 2000/07/12 07/2000/12 12/2000/07')
-
-
-@bot.command()
-async def carter(ctx):
-    await ctx.send("Carter is Julia's boyfriend! twitch.tv/cmoney3051")
-
-
-@bot.command()
-async def sister(ctx):
-    await ctx.send("Lauren is my twin sister, she also does not live with me!")
-
-
-@bot.command()
-async def shyboy(ctx):
-    await ctx.send("They don't call me the funny cute handsome mod for nothing!")
-
-
-@bot.command()
-async def height(ctx):
-    await ctx.send("5ft 3Inch = 160cm")
-
-
-@bot.command()
-async def minecraft(ctx):
-    await ctx.send("The Minecraft Server is a subscriber only server, subscribe on twitch then whisper the streamer"
-                   " with your username. :)")
+    channel_warn = await guild.create_text_channel(name=f'{user.name}-warn', overwrites=overwrites)
+    await channel2.send(embed=embedCha)
+    await channel_warn.send(embed=embedMod)
+    await channel_warn.send(embed=embedUser)
+    await channel_warn.send(f'{user.mention} Please come here.')
 
 
 @bot.command()
 async def julia(ctx):
-    await ctx.send('Julia is from Ontario and streams on Twitch! You should check her out at https://www.twitch.tv'
-                   '/juliaburch.')
+    await ctx.send('Julia is from Ontario and streams on Twitch! You should check her out at https://www.twitch.tv/juliaburch.')
 
 
 @bot.command()
@@ -229,45 +205,9 @@ async def sahara(ctx):
 
 
 @bot.command()
-async def games(ctx):
-    await ctx.send("Julia is a variety streamer and plays many games. Such as COD, RE, Outlast, Minecraft and many "
-                   "others!")
-
-
-@bot.command()
 async def farts(ctx):
     await ctx.send("Turns out that Carter's farts smell good. So if you get the chance then give them a sniff.")
 
-
-@bot.command()
-async def juliaq1(ctx):
-    await ctx.send("I wasn't teabagging him, I was cuddling him!' - Julia, Phasmophobia 27/02/2021")
-
-
-@bot.command()
-async def juliaq2(ctx):
-    await ctx.send('"He yeeted my bf out the window" - Julia Phasmophobia 27/02/2021')
-
-
-@bot.command()
-async def mic(ctx):
-    await ctx.send("Shure SM7B")
-
-
-@bot.command()
-async def camera(ctx):
-    await ctx.send("Julia uses a camera as a camera. Logitech 1080p.")
-
-
-@bot.command()
-async def headset(ctx):
-    await ctx.send("My headset is the Razer Kraken headset or something like that. OR The Yowu chan .com website or "
-                   "something.")
-
-
-@bot.command()
-async def where(ctx):
-    await ctx.send("Lauren is at her flat check her socials to keep updated")
 
 
 @bot.command()
@@ -282,8 +222,7 @@ async def gam(ctx):
 
 @bot.command()
 async def ashisfine1(ctx):
-    await ctx.send("Ash is the twin that was watching a twin but now is modding as a twin for that twin that the twin"
-                   " was watching.")
+    await ctx.send("Ash is the twin that was watching a twin but now is modding as a twin for that twin that the twin was watching.")
 
 
 @bot.command()
@@ -294,30 +233,6 @@ async def dolphinmurder1(ctx):
 @bot.command()
 async def dolphinmurder2(ctx):
     await ctx.send("https://clips.twitch.tv/DeadAstuteKimchiOhMyDog-Fq8ouAqci6X1xJE7")
-
-
-@bot.command()
-async def keyboard(ctx):
-    await ctx.send("AN Pro 2")
-
-
-@bot.command()
-async def english(ctx):
-    await ctx.send("Please keep the chat english only, it helps the Mods to keep this chat a safe and positive place "
-                   "for everyone!")
-
-
-@bot.command()
-async def professions(ctx):
-    await ctx.send("Julia has many professions such as... Burch The Builder, Julia Wick, Professor Burch, Burch The"
-                   " Killer, Sniper Burch, Big Brain Burch, Detective Burch, Julia The Hero, Baker Burch, Power Burch,"
-                   " Panda Murderer Burch and Burch The Dolphin Killer, Murderer Burch, Burch The Bear Blamer, Engineer"
-                   " Burch, Burch Ramsay and Painter Burch")
-
-
-@bot.command()
-async def betrayal(ctx):
-    await ctx.send("https://clips.twitch.tv/ManlyImportantHummingbirdFailFish-E3QzO_UwY1CG7l5V")
 
 
 @bot.command()
@@ -337,17 +252,12 @@ async def pog(ctx):
 
 @bot.command()
 async def becool(ctx):
-    await ctx.send("Wanna be cool? Here's how: \nCOOL TIER 1: Watch her streams. COOL TIER 2: Sub to her twitch. SWAG "
-                   "TIER 1: Sub to her YT. SWAG TIER 2: Join YT membership. POGCHAMP 1: Join her discord POGCHAMP 2: "
-                   "Worship the wick religion")
+    await ctx.send("Wanna be cool? Here's how: \nCOOL TIER 1: Watch her streams. COOL TIER 2: Sub to her twitch. SWAG TIER 1: Sub to her YT. SWAG TIER 2: Join YT membership. POGCHAMP 1: Join her discord POGCHAMP 2: Worship the wick religion")
 
 
 @bot.command()
 async def wickreligion(ctx):
-    await ctx.send(f'"Thou shall worship the wick to be the wicked, what is our motto? '
-                   f'"Whoever comes, whoever it is...we kill em", what do we need? "Guns. Lots of guns." '
-                   f'We work in the dark to serve the light! WE ARE THE WICKSTERS!! <:PowerUpL:857613184479002645> '
-                   f'<:juliab3Wick:857613184479002645> <:PowerUpR:857613184479002645>')
+    await ctx.send(f'"hou shall worship the wick to be the wicked, what is our motto? "Whoever comes, whoever it is...we kill em", what do we need? "Guns. Lots of guns." We work in the dark to serve the light! WE ARE THE WICKSTERS!! <:PowerUpL:857613184479002645><:juliab3Wick:857613184479002645><:PowerUpR:857613184479002645>')
 
 
 @bot.command()
@@ -378,17 +288,6 @@ async def sahara1(ctx):
 @bot.command()
 async def whereislauren(ctx):
     await ctx.send("its always where is lauren but never how is lauren FeelsBadMan")
-
-    
-@bot.command(aliases=['Julialivingwithbf']) 
-async def julialivingwithbf(ctx):
-    await ctx.send("I kinda live with my bf, I kinda live alone --Julia 2021")
-    
-    
-@bot.command(aliases=['Family'])
-async def family(ctx):
-    await ctx.send("It's with the family.")
-
 
 # -------------------------------------------------------------------------------------------
 
