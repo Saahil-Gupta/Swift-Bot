@@ -156,8 +156,8 @@ async def warnChannel(ctx, user: discord.User, *, reason=None):
         role_mods: discord.PermissionOverwrite(view_channel=True),
         role_admin: discord.PermissionOverwrite(view_channel=True)
     }
-    embedMod = discord.Embed(title = 'Information for the mods', description = '!close [channel ID]- Closes the text channel'
-                                                                               '\n!export- to make a log of the warn channel. It will be exported as a .txt file. Send the txt file to the logs.\n If the issue was resolved, That is Amazing. If it could not be resolved,'
+    embedMod = discord.Embed(title = 'Information for the mods', description = '!jbclose [channel ID]- Closes the text channel'
+                                                                               '\n!jbhistory-To make a log of the conversation in the warn channel(This Command is still WIP). Send the txt file to the logs.\n If the issue was resolved, That is Amazing. If it could not be resolved,'
                                                                                'Send the reason of the issue not being resolved in #Punishments', color = 0x00FF00)
 
     embedCha = discord.Embed(title='🧨A new Warn Channel was created🧨', decription='Warn Channel', color=0xcccc00)
@@ -173,122 +173,88 @@ async def warnChannel(ctx, user: discord.User, *, reason=None):
     await channel_warn.send(embed=embedUser)
     await channel_warn.send(f'{user.mention} Please come here.')
 
-
-@bot.command()
-async def julia(ctx):
-    await ctx.send('Julia is from Ontario and streams on Twitch! You should check her out at https://www.twitch.tv/juliaburch.')
-
-
-@bot.command()
-async def bear(ctx):
-    await ctx.send("He is Big! He is Strong! He is Super Cool and Hot! I-i-i-i-it's Bear!")
-
-
-@bot.command()
-async def vibecheck(ctx):
-    await ctx.send("The vibe is cool and balanced.")
+#
+# @bot.command()
+# async def history(ctx):
+#     channel2 = bot.get_channel(864724149079244830)
+#     async for msg in ctx.channel.history(limit=None):
+#         embedHis=discord.Embed(title='Message History of Warn Channel',desription=f'{ctx.channel.name}')
+#         embedHis.add_field(name=f'Moderator:{ctx.author.name}',value=f"{msg.created_at} - {msg.author.display_name}: {msg.content}\n")
+#         await channel2.send(embed=embedHis)
 
 
 @bot.command()
-async def duffstuff(ctx):
-    await ctx.send("'He takes all the fun out of modding and chess' - Cullen FeelsBadMan")
+@commands.has_permissions(manage_messages=True)
+async def restrictUser(ctx, user: discord.User, *, Channel:discord.TextChannel= None):
+    guild = ctx.guild
+    channel2 = bot.get_channel(844527629057916928)
+    overwrite1 = discord.PermissionOverwrite()
+    overwrite1.view_channel=False
+    embedChannel=discord.Embed(title='Person Restricted.', description=f'Restricted the following user: {user.name} ❌', color=0xcc0000)
+    embedRestrict=discord.Embed(title=f'Person restricted. User:{user}', description='The following person was banned from the below mentioned channel', color=0xcc0000)
+    embedRestrict.add_field(name=f'Moderator:{ctx.author.name}',value=f'Channel: {Channel.name}')
+    await Channel.set_permissions(user, overwrite=overwrite1)
+    await ctx.channel.send(embed=embedChannel)
+    await channel2.send(embed=embedRestrict)
 
 
 @bot.command()
-async def bbm(ctx):
-    await ctx.send("https://www.twitch.tv/brutalbearman")
+@commands.has_permissions(manage_messages=True)
+async def unrestrict(ctx, user: discord.User, *, Channel:discord.TextChannel= None):
+    guild = ctx.guild
+    channel2 = bot.get_channel(844527629057916928)
+    overwrite2 = discord.PermissionOverwrite()
+    overwrite2.view_channel=True
+    embedUnrestrict=discord.Embed(title=f'Person unrestricted. User:{user}', description='The following person was unbanned from the below mentioned channel', color=0x8fcc00)
+    embedUnrestrict.add_field(name=f'Moderator:{ctx.author.name}',value=f'Channel: {Channel.name}', color=0x8fcc00)
+    embedChannel=discord.Embed(title='Person Unrestricted.', description=f'Unrestricted the following user: {user.name} ✅')
+    await Channel.set_permissions(user, overwrite=overwrite2)
+    await ctx.channel.send(embed=embedChannel)
+    await channel2.send(embed=embedUnrestrict)
 
 
 @bot.command()
-async def sahara(ctx):
-    await ctx.send("'One mans cringe is another mans PogChamp' -Sahara 2021")
+@commands.has_permissions(manage_channels=True)
+async def banChannel(ctx, channel:discord.TextChannel=None,*,reason=None):
+    guild=ctx.guild
+    role_id = 752746015412584538
+    role_wicksters = get(guild.roles, id=role_id)
+    role_3000 = get(guild.roles, id=758331987324436522)
+    role_mods = get(guild.roles, id=748807052440109057)
+    role_admin = get(guild.roles, id=783748057351192626)
+    role_trial = get(guild.roles, id=864528000418578473)
+    channel2 = bot.get_channel(844527629057916928)
+    embedBan= discord.Embed(title='The following channel was banned or restricted.',description='See below.',color=0xcc0000)
+    embedBan.set_author(name=f'Moderator: {ctx.author.name}')
+    embedBan.add_field(name=f'{channel.name} was banned.',value=f'Reason: {reason}')
+    await channel.set_permissions(role_trial, view_channel=True)
+    await channel.set_permissions(role_admin, view_channel=True)
+    await channel.set_permissions(role_mods, view_channel=True)
+    await channel.set_permissions(role_3000, view_channel=False)
+    await channel.set_permissions(role_wicksters, view_channel=False)
+    await channel2.send(embed=embedBan)
 
 
 @bot.command()
-async def farts(ctx):
-    await ctx.send("Turns out that Carter's farts smell good. So if you get the chance then give them a sniff.")
-
-
-
-@bot.command()
-async def squids(ctx):
-    await ctx.send("Julia loves them. They are just the best thing in minecraft. So derpy and cute!")
-
-
-@bot.command()
-async def gam(ctx):
-    await ctx.send("RIP GoldenArmourMan He fought well and taught Julia how to parry. F.")
-
-
-@bot.command()
-async def ashisfine1(ctx):
-    await ctx.send("Ash is the twin that was watching a twin but now is modding as a twin for that twin that the twin was watching.")
-
-
-@bot.command()
-async def dolphinmurder1(ctx):
-    await ctx.send("https://clips.twitch.tv/AthleticToughPanPRChase-pCUoTSeMH6JiJDt_")
-
-
-@bot.command()
-async def dolphinmurder2(ctx):
-    await ctx.send("https://clips.twitch.tv/DeadAstuteKimchiOhMyDog-Fq8ouAqci6X1xJE7")
-
-
-@bot.command()
-async def duff(ctx):
-    await ctx.send("He is a robot and also Streamlabs brother")
-
-
-@bot.command()
-async def bigbrainash(ctx):
-    await ctx.send("Sometimes Ash can be smart but only sometimes")
-
-
-@bot.command()
-async def pog(ctx):
-    await ctx.send("it truly is POG")
-
-
-@bot.command()
-async def becool(ctx):
-    await ctx.send("Wanna be cool? Here's how: \nCOOL TIER 1: Watch her streams. COOL TIER 2: Sub to her twitch. SWAG TIER 1: Sub to her YT. SWAG TIER 2: Join YT membership. POGCHAMP 1: Join her discord POGCHAMP 2: Worship the wick religion")
-
-
-@bot.command()
-async def wickreligion(ctx):
-    await ctx.send(f'"hou shall worship the wick to be the wicked, what is our motto? "Whoever comes, whoever it is...we kill em", what do we need? "Guns. Lots of guns." We work in the dark to serve the light! WE ARE THE WICKSTERS!! <:PowerUpL:857613184479002645><:juliab3Wick:857613184479002645><:PowerUpR:857613184479002645>')
-
-
-@bot.command()
-async def lady(ctx):
-    await ctx.send("The WHOLE chat has a crush on Lady Dimitrescu (Except from Ash)")
-
-
-@bot.command()
-async def monitor(ctx):
-    await ctx.send("Julia has a monitor, also another monitor. They are known as monitor 1 and monitor 2.")
-
-
-@bot.command()
-async def julesapology(ctx):
-    await ctx.send('"I am so sorry" *continues shooting it*')
-
-
-@bot.command()
-async def juliaiscarter(ctx):
-    await ctx.send("https://clips.twitch.tv/LongCuteHamsterLitty-hnUBK7w1wD35polv")
-
-
-@bot.command()
-async def sahara1(ctx):
-    await ctx.send("Sahara streams with Julia on fridays! Check her out at https://www.twitch.tv/SaharaNotTheDesert :)")
-
-
-@bot.command()
-async def whereislauren(ctx):
-    await ctx.send("its always where is lauren but never how is lauren FeelsBadMan")
-
+@commands.has_permissions(manage_channels=True)
+async def unbanChannel(ctx, channel:discord.TextChannel=None, *, reason=None):
+    guild=ctx.guild
+    role_id = 752746015412584538
+    role_wicksters = get(guild.roles, id=role_id)
+    role_3000 = get(guild.roles, id=758331987324436522)
+    role_mods = get(guild.roles, id=748807052440109057)
+    role_admin = get(guild.roles, id=783748057351192626)
+    role_trial = get(guild.roles, id=864528000418578473)
+    channel2 = bot.get_channel(844527629057916928)
+    embedUnban= discord.Embed(title='The following channel was unbanned or unrestricted.',description='See below.',color=0x0000FF)
+    embedUnban.set_author(name=f'Moderator: {ctx.author.name}')
+    embedUnban.add_field(name=f'{channel.name} was unbanned.',value=f'Reason: {reason}')
+    await channel.set_permissions(role_trial, view_channel=True)
+    await channel.set_permissions(role_admin, view_channel=True)
+    await channel.set_permissions(role_mods, view_channel=True)
+    await channel.set_permissions(role_3000, view_channel=True)
+    await channel.set_permissions(role_wicksters, view_channel=True)
+    await channel2.send(embed=embedUnban)
 # -------------------------------------------------------------------------------------------
 
 bot.run(os.environ['token'])

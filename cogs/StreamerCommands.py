@@ -107,5 +107,29 @@ class StaffCommands(commands.Cog):
     async def family(self, ctx):
         await ctx.send("It's with the family.")
 
+    @commands.command()
+    async def julia(self, ctx):
+        await ctx.send('Julia is from Ontario and streams on Twitch! You should check her out at https://www.twitch.tv/juliaburch.')
+
+    @commands.command()
+    async def monitor(self, ctx):
+        await ctx.send("Julia has a monitor, also another monitor. They are known as monitor 1 and monitor 2.")
+
+    @commands.command()
+    async def julesapology(self, ctx):
+        await ctx.send('"I am so sorry" *continues shooting it*')
+
+    @commands.command()
+    async def juliaiscarter(self, ctx):
+        await ctx.send("https://clips.twitch.tv/LongCuteHamsterLitty-hnUBK7w1wD35polv")
+
+    @commands.command()
+    async def dolphinmurder1(self, ctx):
+        await ctx.send("https://clips.twitch.tv/AthleticToughPanPRChase-pCUoTSeMH6JiJDt_")
+
+    @commands.command()
+    async def dolphinmurder2(self, ctx):
+        await ctx.send("https://clips.twitch.tv/DeadAstuteKimchiOhMyDog-Fq8ouAqci6X1xJE7")
+
 def setup(taylor):
     taylor.add_cog(StaffCommands(taylor))

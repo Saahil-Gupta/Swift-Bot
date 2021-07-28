@@ -1,9 +1,8 @@
 import discord
 from discord.client import Client
 from discord.ext import commands
-from discord.ext.commands import bot
 
-class StaffCommands(commands.Cog):
+class StaffCustomCommands(commands.Cog):
 
     def __init__(self, swift):
         self.client = swift
@@ -68,6 +67,41 @@ class StaffCommands(commands.Cog):
     async def gabe(self, ctx):
         await ctx.send("Gabe the Babe is the noicest person in the server.")
 
+    @commands.command()
+    async def shyboy(self, ctx):
+        await ctx.send("They don't call me the funny cute handsome mod for nothing!")
+
+    @commands.command()
+    async def bear(self, ctx):
+        await ctx.send("He is Big! He is Strong! He is Super Cool and Hot! I-i-i-i-it's Bear!")
+
+    @commands.command()
+    async def duffstuff(self, ctx):
+        await ctx.send("'He takes all the fun out of modding and chess' - Cullen FeelsBadMan")
+
+    @commands.command()
+    async def bbm(self, ctx):
+        await ctx.send("https://www.twitch.tv/brutalbearman")
+
+    @commands.command()
+    async def sahara(self, ctx):
+        await ctx.send("'One mans cringe is another mans PogChamp' -Sahara 2021")
+
+    @commands.command()
+    async def ashisfine1(self, ctx):
+        await ctx.send("Ash is the twin that was watching a twin but now is modding as a twin for that twin that the twin was watching.")
+
+    @commands.command()
+    async def duff(self, ctx):
+        await ctx.send("He is a robot and also Streamlabs brother")
+
+    @commands.command()
+    async def bigbrainash(self, ctx):
+        await ctx.send("Sometimes Ash can be smart but only sometimes")
+
+    @commands.command()
+    async def sahara1(self, ctx):
+        await ctx.send("Sahara streams with Julia on fridays! Check her out at https://www.twitch.tv/SaharaNotTheDesert :)")
 
 def setup(swift):
-    swift.add_cog(StaffCommands(swift))
+    swift.add_cog(StaffCustomCommands(swift))
