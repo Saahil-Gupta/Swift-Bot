@@ -126,8 +126,8 @@ async def dm(ctx, user: discord.User, *, message=None):
 async def close(ctx, channel: discord.TextChannel):
     mbed = discord.Embed(title='Success',
                          description=f'Channel: {ctx.channel.name} has been deleted')
-    mbed.add_field(name=' This Modmail has been closed', value='Mods tag this embed and send the reason/situation for'
-                                                               ' which a member used modmail. Send it below this embed')
+    mbed.add_field(name=' This Modmail/Warn Channel has been closed', value='Mods tag this embed and send the reason/situation for'
+                                                               ' which a member used modmail or you made a warn channel. Send it below this embed')
     channel = bot.get_channel(844527629057916928)
 
     await channel.send(embed=mbed)
