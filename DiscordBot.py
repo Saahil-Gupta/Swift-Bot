@@ -23,7 +23,7 @@ async def on_ready():
 @tasks.loop(hours=8)
 async def msg1():
     message_channel = bot.get_channel(748798206816813121) # • 748798206816813121
-    pink_heart = discord.utils.get(bot.emojis, id=680554415534768131)
+    pink_heart = discord.utils.get(bot.emojis, id=859977705406595102)
     pink_butterfly = discord.utils.get(bot.emojis, id=856262693241749525)
     embedAuto = discord.Embed(title=f'{pink_butterfly} Sub Reminder',description=f'\n{pink_heart} TYSM for all the support!\n\n'
     "• Sub to [Julia Burch](https://www.youtube.com/channel/UCcRKWdzb5P9jsswSHmuq9PA)\n"
