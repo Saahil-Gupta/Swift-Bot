@@ -23,7 +23,7 @@ async def on_ready():
 @tasks.loop(hours=8)
 async def msg1():
     message_channel = bot.get_channel(748798206816813121) # • 748798206816813121
-    pink_heart = discord.utils.get(bot.emojis, id=874177949232922634)
+    pink_heart = discord.utils.get(bot.emojis, id=874013519203409961)
     pink_butterfly = discord.utils.get(bot.emojis, id=856262693241749525)
     blank_emoji = discord.utils.get(bot.emojis, id=836980830253219891)
     embedAuto = discord.Embed(title=f'{pink_butterfly} __Sub Reminder__',description=f'\n{blank_emoji}{pink_heart} TYSM for all the support!\n\n'
