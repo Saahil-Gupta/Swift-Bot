@@ -23,12 +23,13 @@ async def on_ready():
 @tasks.loop(hours=8)
 async def msg1():
     message_channel = bot.get_channel(748798206816813121) # • 748798206816813121
-    pink_heart = discord.utils.get(bot.emojis, id=859977705406595102)
+    pink_heart = discord.utils.get(bot.emojis, id=874177949232922634)
     pink_butterfly = discord.utils.get(bot.emojis, id=856262693241749525)
-    embedAuto = discord.Embed(title=f'{pink_butterfly} Sub Reminder',description=f'\n{pink_heart} TYSM for all the support!\n\n'
-    "• Sub to [Julia Burch](https://www.youtube.com/channel/UCcRKWdzb5P9jsswSHmuq9PA)\n"
-    "• Sub to [Julia Burch Shorts](https://www.youtube.com/channel/UCpaxSWzKLtS3uY4Gkp-_SOQ)\n"
-    "• Sub to [Julia Burch Livestreams](https://www.youtube.com/channel/UCigOCMIzDMXGJXtGOQZv6xA)",color=0xFFC1E6)
+    blank_emoji = discord.utils.get(bot.emojis, id=836980830253219891)
+    embedAuto = discord.Embed(title=f'{pink_butterfly} __Sub Reminder__',description=f'\n{blank_emoji}{pink_heart} TYSM for all the support!\n\n'
+    f"{blank_emoji}・ Sub to [Julia Burch](https://www.youtube.com/channel/UCcRKWdzb5P9jsswSHmuq9PA)\n"
+    f"{blank_emoji}・ Sub to [Julia Burch Shorts](https://www.youtube.com/channel/UCpaxSWzKLtS3uY4Gkp-_SOQ)\n"
+    f"{blank_emoji}・ Sub to [Julia Burch Livestreams](https://www.youtube.com/channel/UCigOCMIzDMXGJXtGOQZv6xA)",color=0xFFC1E6)
     embedAuto.set_thumbnail(url="https://images-ext-2.discordapp.net/external/otj151m1XhrpCs_OUT2SIhBHTXpa4P9hLtZjUOQEWLI/%3Fv%3D1/https/cdn.discordapp.com/emojis/850562956877365298.gif")
     await message_channel.send(embed=embedAuto)
 
