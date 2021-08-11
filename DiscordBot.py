@@ -9,7 +9,11 @@ import datetime as dt
 from discord.ext import tasks
 import asyncio
 
-bot = commands.Bot(command_prefix='!jb')
+intents = discord.Intents.default()
+intents.members = True
+intents = intents.all()
+bot = commands.Bot(command_prefix='!',intents=intents)
+bot = commands.Bot(command_prefix='!jb',intents = intents)
 
 # ----------------------------------------------------------------------------------------------
 
@@ -20,7 +24,7 @@ async def on_ready():
     print('Bot is online and Ready to Go')
     msg1.start()
 
-@tasks.loop(hours=8)
+@tasks.loop(hours=12)
 async def msg1():
     message_channel = bot.get_channel(748798206816813121) # • 748798206816813121
     pink_heart = discord.utils.get(bot.emojis, id=874013519203409961)
@@ -32,6 +36,21 @@ async def msg1():
     f"{blank_emoji}・ Sub to [Julia Burch Livestreams](https://www.youtube.com/channel/UCigOCMIzDMXGJXtGOQZv6xA)",color=0xFFC1E6)
     embedAuto.set_thumbnail(url="https://images-ext-2.discordapp.net/external/otj151m1XhrpCs_OUT2SIhBHTXpa4P9hLtZjUOQEWLI/%3Fv%3D1/https/cdn.discordapp.com/emojis/850562956877365298.gif")
     await message_channel.send(embed=embedAuto)
+
+
+@bot.event
+async def on_member_join(member):
+    channel = bot.get_channel(838451293109747762) # 838451293109747762
+    roles = bot.get_channel(859878377209200681) # 859878377209200681
+    rules = bot.get_channel(748798463919259769) # 748798463919259769
+    emoji = discord.utils.get(bot.emojis, id=836980830253219891)
+    pink_heart = discord.utils.get(bot.emojis, id=836995830942662686)
+    e = discord.Embed(title='',description=f'{emoji}{pink_heart}・ __**Plz check**__\n'
+    f'{emoji}{emoji} ・{roles.mention}\n'
+    f'{emoji}{emoji} ・{rules.mention}',color=0xFFC0CB) #・
+    e.set_thumbnail(url='https://images-ext-2.discordapp.net/external/RxmlLh_fCbRpK1O-XDXcLh0I6736wjBBr9WgK-6z5Lk/https/media.discordapp.net/attachments/748798605489340436/857989287613038622/16246309691327537014753031597027.gif')
+    e.set_author(name=member.name, icon_url=member.avatar_url)
+    await channel.send(embed=e)
 
 
 @bot.command()
@@ -192,7 +211,19 @@ async def warnChannel(ctx, user: discord.User, *, reason=None):
     await channel_warn.send(embed=embedUser)
     await channel_warn.send(f'{user.mention} Please come here.')
 
-#
+@warnChannel.error
+async def warnChannel_error(ctx, error):
+    channel2 = bot.get_channel(844527629057916928)
+    if isinstance(error, commands.MissingPermissions):
+        await ctx.send(f'{ctx.message.author.mention} You do not have the permission to run that command! :red_circle:')
+    elif isinstance(error, commands.MissingRequiredArgument):
+        await ctx.send(f'{ctx.message.author.mention} There is an Argument missing in that command! :red_circle:\nWarn Channel Syntax: ```!jbwarnChannel [@user or ID] [reason]```')
+    elif isinstance(error, commands.BadArgument):
+        await ctx.send(f'{ctx.message.author.mention} To mute someone you need to mention them! :red_circle:\nWarn Channel Syntax: ```!jbwarnChannel [@user or ID] [reason]```')
+    else:
+        await ctx.send('There was an error while executing the command! DarthBlack has been informed! :red_circle:')
+        await channel2.send('There was an error while executing the command! DarthBlack has been informed! :red_circle:')
+        print(error)
 # @bot.command()
 # async def history(ctx):
 #     channel2 = bot.get_channel(864724149079244830)
