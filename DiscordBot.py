@@ -45,12 +45,12 @@ async def on_member_join(member):
     rules = bot.get_channel(748798463919259769) # 748798463919259769
     emoji = discord.utils.get(bot.emojis, id=836980830253219891)
     pink_heart = discord.utils.get(bot.emojis, id=836995830942662686)
-    e = discord.Embed(title='',description=f'{emoji}{pink_heart}・ __**Plz check**__\n'
+    e = discord.Embed(title='',description=f'{emoji} {pink_heart}・ __**Plz check**__\n'
     f'{emoji}{emoji} ・{roles.mention}\n'
     f'{emoji}{emoji} ・{rules.mention}',color=0xFFC0CB) #・
     e.set_thumbnail(url='https://images-ext-2.discordapp.net/external/RxmlLh_fCbRpK1O-XDXcLh0I6736wjBBr9WgK-6z5Lk/https/media.discordapp.net/attachments/748798605489340436/857989287613038622/16246309691327537014753031597027.gif')
     e.set_author(name=member.name, icon_url=member.avatar_url)
-    await channel.send(embed=e)
+    await channel.send(f'Welcome to the server {member.mention}!', embed=e)
 
 
 @bot.command()
