@@ -14,7 +14,7 @@ class restrictUser(commands.Cog):
     async def on_ready(self):
         print('Bot is online in restrict user')
 
-    @bot.command()
+    @commands.command()
     @commands.has_permissions(manage_messages=True)
     async def restrictUser(self, ctx, user: discord.User, *, Channel:discord.TextChannel= None):
         guild = ctx.guild

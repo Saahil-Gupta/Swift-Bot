@@ -14,7 +14,7 @@ class warnChannel(commands.Cog):
     async def on_ready(self):
         print('Bot is online in warn channel')
 
-    @bot.command()
+    @commands.command()
     @commands.has_guild_permissions(manage_messages=True)
     async def warnChannel(self, ctx, user: discord.User, *, reason=None):
         guild = ctx.guild
