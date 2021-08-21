@@ -24,7 +24,7 @@ class StaffCommands(commands.Cog):
         await ctx.send("No need to ping her, she reads the chat if she's free.")
 
     @commands.command()
-    async def ruleshwy4(self, ctx):
+    async def ruleswhy4(self, ctx):
         await ctx.send("Being excessively creepy or flirty is not acceptable.")
 
     @commands.command()
