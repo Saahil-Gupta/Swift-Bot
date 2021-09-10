@@ -39,7 +39,7 @@ class restrictUser(commands.Cog):
         overwrite2 = discord.PermissionOverwrite()
         overwrite2.view_channel=True
         embedUnrestrict=discord.Embed(title=f'Person unrestricted. User:{user}', description='The following person was unbanned from the below mentioned channel', color=0x8fcc00)
-        embedUnrestrict.add_field(name=f'Moderator:{ctx.author.name}',value=f'Channel: {Channel.name}', color=0x8fcc00)
+        embedUnrestrict.add_field(name=f'Moderator:{ctx.author.name}',value=f'Channel: {Channel.name}')
         embedChannel=discord.Embed(title='Person Unrestricted.', description=f'Unrestricted the following user: {user.name} ✅')
         await Channel.set_permissions(user, overwrite=overwrite2)
         await ctx.channel.send(embed=embedChannel)
