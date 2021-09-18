@@ -12,8 +12,7 @@ import asyncio
 intents = discord.Intents.default()
 intents.members = True
 intents = intents.all()
-bot = commands.Bot(command_prefix='!',intents=intents)
-bot = commands.Bot(command_prefix='!jb',intents = intents)
+bot = commands.Bot(command_prefix='!jb', intents=intents)
 
 # ----------------------------------------------------------------------------------------------
 
@@ -24,6 +23,7 @@ async def on_ready():
     print('Bot is online and Ready to Go')
     msg1.start()
 
+
 @tasks.loop(hours=12)
 async def msg1():
     message_channel = bot.get_channel(748798206816813121) # • 748798206816813121
@@ -31,9 +31,9 @@ async def msg1():
     pink_butterfly = discord.utils.get(bot.emojis, id=856262693241749525)
     blank_emoji = discord.utils.get(bot.emojis, id=836980830253219891)
     embedAuto = discord.Embed(title=f'{pink_butterfly} __Sub Reminder__',description=f'\n{blank_emoji}{pink_heart} TYSM for all the support!\n\n'
-    f"{blank_emoji}・ Sub to [Julia Burch](https://www.youtube.com/channel/UCcRKWdzb5P9jsswSHmuq9PA)\n"
-    f"{blank_emoji}・ Sub to [Julia Burch Shorts](https://www.youtube.com/channel/UCpaxSWzKLtS3uY4Gkp-_SOQ)\n"
-    f"{blank_emoji}・ Sub to [Julia Burch Livestreams](https://www.youtube.com/channel/UCigOCMIzDMXGJXtGOQZv6xA)",color=0xFFC1E6)
+                                    f"{blank_emoji}・ Sub to [Julia Burch](https://www.youtube.com/channel/UCcRKWdzb5P9jsswSHmuq9PA)\n"
+                                    f"{blank_emoji}・ Sub to [Julia Burch Shorts](https://www.youtube.com/channel/UCpaxSWzKLtS3uY4Gkp-_SOQ)\n"
+                                    f"{blank_emoji}・ Sub to [Julia Burch Livestreams](https://www.youtube.com/channel/UCigOCMIzDMXGJXtGOQZv6xA)",color=0xFFC1E6)
     embedAuto.set_thumbnail(url="https://images-ext-2.discordapp.net/external/otj151m1XhrpCs_OUT2SIhBHTXpa4P9hLtZjUOQEWLI/%3Fv%3D1/https/cdn.discordapp.com/emojis/850562956877365298.gif")
     await message_channel.send(embed=embedAuto)
 
@@ -148,20 +148,23 @@ async def on_message(message):
     if isinstance(channel3, discord.abc.GuildChannel):
         if message.channel.id == 842712964909629460: #Youtube suggestions, Football in SBt or 875017721207746640
             if message.content.startswith('+game'):
-                approve = discord.utils.get(bot.emojis, id=842770232266850334)
-                deny = discord.utils.get(bot.emojis, id=842770280769388635)
-                huh = discord.utils.get(bot.emojis, id=817105035087052810)
-                await message.add_reaction(approve)
-                await message.add_reaction(deny)
-                await message.add_reaction(huh)
+                await message.add_reaction(discord.utils.get(bot.emojis, id=842770232266850334))
+                await message.add_reaction(discord.utils.get(bot.emojis, id=842770280769388635))
+                await message.add_reaction(discord.utils.get(bot.emojis, id=817105035087052810))
         if message.channel.id == 842713610950410240:
             if message.content.startswith("+feedback"):
-                approve = discord.utils.get(bot.emojis, id=842770232266850334)
-                deny = discord.utils.get(bot.emojis, id=842770280769388635)
-                huh = discord.utils.get(bot.emojis, id=817105035087052810)
-                await message.add_reaction(approve)
-                await message.add_reaction(deny)
-                await message.add_reaction(huh)
+                await message.add_reaction(discord.utils.get(bot.emojis, id=842770232266850334))
+                await message.add_reaction(discord.utils.get(bot.emojis, id=842770280769388635))
+                await message.add_reaction(discord.utils.get(bot.emojis, id=817105035087052810))
+        if message.channel.id == 755062206697308201:
+            if message.content.startswith('+suggest'):
+                embe = discord.Embed(color=0x7393B3)
+                embe.set_author(name=f'Suggested by {message.author}', icon_url=f'{message.author.avatar.url}')
+                embe.add_field(name='New suggestion!', value=f'{message.content[8:]}')
+                await message.delete()
+                await message.channel.send(embed=embe)
+                await message.add_reaction(discord.utils.get(bot.emojis, id=842770232266850334))
+                await message.add_reaction(discord.utils.get(bot.emojis, id=842770280769388635))
         # await channel.send(embed=embedVar)
 
     await bot.process_commands(message)
@@ -198,51 +201,6 @@ async def close(ctx, channel: discord.TextChannel):
 #         embedHis.add_field(name=f'Moderator:{ctx.author.name}',value=f"{msg.created_at} - {msg.author.display_name}: {msg.content}\n")
 #         await channel2.send(embed=embedHis)
 
-
-
-
-@bot.command()
-@commands.has_permissions(manage_channels=True)
-async def banChannel(ctx, channel:discord.TextChannel=None,*,reason=None):
-    guild=ctx.guild
-    role_id = 752746015412584538
-    role_wicksters = get(guild.roles, id=role_id)
-    role_3000 = get(guild.roles, id=758331987324436522)
-    role_mods = get(guild.roles, id=748807052440109057)
-    role_admin = get(guild.roles, id=783748057351192626)
-    role_trial = get(guild.roles, id=864528000418578473)
-    channel2 = bot.get_channel(844527629057916928)
-    embedBan= discord.Embed(title='The following channel was banned or restricted.',description='See below.',color=0xcc0000)
-    embedBan.set_author(name=f'Moderator: {ctx.author.name}')
-    embedBan.add_field(name=f'{channel.name} was banned.',value=f'Reason: {reason}')
-    await channel.set_permissions(role_trial, view_channel=True)
-    await channel.set_permissions(role_admin, view_channel=True)
-    await channel.set_permissions(role_mods, view_channel=True)
-    await channel.set_permissions(role_3000, view_channel=False)
-    await channel.set_permissions(role_wicksters, view_channel=False)
-    await channel2.send(embed=embedBan)
-
-
-@bot.command()
-@commands.has_permissions(manage_channels=True)
-async def unbanChannel(ctx, channel:discord.TextChannel=None, *, reason=None):
-    guild=ctx.guild
-    role_id = 752746015412584538
-    role_wicksters = get(guild.roles, id=role_id)
-    role_3000 = get(guild.roles, id=758331987324436522)
-    role_mods = get(guild.roles, id=748807052440109057)
-    role_admin = get(guild.roles, id=783748057351192626)
-    role_trial = get(guild.roles, id=864528000418578473)
-    channel2 = bot.get_channel(844527629057916928)
-    embedUnban= discord.Embed(title='The following channel was unbanned or unrestricted.',description='See below.',color=0x0000FF)
-    embedUnban.set_author(name=f'Moderator: {ctx.author.name}')
-    embedUnban.add_field(name=f'{channel.name} was unbanned.',value=f'Reason: {reason}')
-    await channel.set_permissions(role_trial, view_channel=True)
-    await channel.set_permissions(role_admin, view_channel=True)
-    await channel.set_permissions(role_mods, view_channel=True)
-    await channel.set_permissions(role_3000, view_channel=True)
-    await channel.set_permissions(role_wicksters, view_channel=True)
-    await channel2.send(embed=embedUnban)
 # -------------------------------------------------------------------------------------------
 
 bot.run(os.environ['token'])
