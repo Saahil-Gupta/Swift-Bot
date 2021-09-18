@@ -159,7 +159,7 @@ async def on_message(message):
         if message.channel.id == 755062206697308201:
             if message.content.startswith('+suggest'):
                 embe = discord.Embed(color=0x7393B3)
-                embe.set_author(name=f'Suggested by {message.author}', icon_url=f'{message.author.avatar_url}')
+                embe.set_author(name=message.author, icon_url=f'{message.author.avatar_url}')
                 embe.add_field(name='New suggestion!', value=f'{message.content[8:]}')
                 await message.delete()
                 await message.channel.send(embed=embe)
