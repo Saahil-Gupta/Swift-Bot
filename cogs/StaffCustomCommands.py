@@ -102,6 +102,10 @@ class StaffCustomCommands(commands.Cog):
     @commands.command()
     async def sahara1(self, ctx):
         await ctx.send("Sahara streams with Julia on fridays! Check her out at https://www.twitch.tv/SaharaNotTheDesert :)")
+       
+    @commands.command(aliases=['Coronor', 'pilotsnow', 'coronor'])
+    async def Pilotsnow(self, ctx):
+        await ctx.send("She is Fun and Intoxicating. Beware !")
 
 def setup(swift):
     swift.add_cog(StaffCustomCommands(swift))
