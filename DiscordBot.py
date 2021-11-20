@@ -5,9 +5,10 @@ from discord.utils import get
 from discord import Embed, DMChannel, Role, Attachment
 from discord.abc import GuildChannel, _Overwrites
 import asyncio
-import datetime as dt
 from discord.ext import tasks
 import asyncio
+from discord.ext import tasks
+from discord.app import Option
 
 intents = discord.Intents.default()
 intents.members = True
@@ -190,6 +191,17 @@ async def close(ctx, channel: discord.TextChannel):
 
     await channel.send(embed=mbed)
     await ctx.channel.delete()
+
+
+@bot.command(aliases=['Jules'])
+async def jules(ctx):
+    if ctx.channel.id != 910557622489456680:
+        return
+    guild = ctx.guild
+    member=ctx.author
+    role_wicksters = get(guild.roles, id=752746015412584538)
+    await member.add_roles(role_wicksters)
+    await ctx.send(f'Added the role for {member.name}')
 
 # --------------------------------------------------------------------------------------------
 
