@@ -6,9 +6,7 @@ from discord import Embed, DMChannel, Role, Attachment
 from discord.abc import GuildChannel, _Overwrites
 import asyncio
 from discord.ext import tasks
-import asyncio
-from discord.ext import tasks
-from discord.app import Option
+
 
 intents = discord.Intents.default()
 intents.members = True
