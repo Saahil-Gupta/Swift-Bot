@@ -76,7 +76,7 @@ async def ping(ctx):
 async def on_message(message):
     if message.author == bot.user:
         return
-    if isinstance(message.channel, DMChannel):
+    if isinstance(message.channel, DMChannel):      #MODMAIL STARTS
         guild = bot.get_guild(748798206816813117)
         channels = await guild.fetch_channels()
         channel2 = bot.get_channel(844527629057916928)  # for modmail log
@@ -143,20 +143,22 @@ async def on_message(message):
             await channel.send(embed=embedVar)
         if len(message.attachments) > 0:
             await channel.send(str(message.attachments))
+    #Modmail Ends
     channel3 = await bot.fetch_channel(842712964909629460)
+    whitelist_channels = [784145348846944256, 748798206816813121, 930978916166950963, 749145111635427429, 853901384511914004] # intro, general,battle tower, gaming, global chat
     if isinstance(channel3, discord.abc.GuildChannel):
         if message.channel.id == 842712964909629460: #Youtube suggestions, Football in SBt or 875017721207746640
-            if message.content.startswith('+game'):
+            if message.content.startswith('+game'):    #Game suggestons
                 await message.add_reaction(discord.utils.get(bot.emojis, id=842770232266850334))
                 await message.add_reaction(discord.utils.get(bot.emojis, id=842770280769388635))
                 await message.add_reaction(discord.utils.get(bot.emojis, id=817105035087052810))
         if message.channel.id == 842713610950410240:
-            if message.content.startswith("+feedback"):
+            if message.content.startswith("+feedback"): #feedback
                 await message.add_reaction(discord.utils.get(bot.emojis, id=842770232266850334))
                 await message.add_reaction(discord.utils.get(bot.emojis, id=842770280769388635))
                 await message.add_reaction(discord.utils.get(bot.emojis, id=817105035087052810))
         if message.channel.id == 755062206697308201:
-            if message.content.startswith('+suggest'):
+            if message.content.startswith('+suggest'): #youtube suggestions channel
                 embe = discord.Embed(color=0x7393B3)
                 embe.set_author(name=message.author, icon_url=f'{message.author.avatar_url}')
                 embe.add_field(name='New suggestion!', value=f'{message.content[8:]}')
@@ -166,6 +168,16 @@ async def on_message(message):
                 await message.add_reaction(discord.utils.get(bot.emojis, id=842770280769388635))
         # await channel.send(embed=embedVar)
 
+    #Start of Anti-phishing code
+        elif message.channel.id in whitelist_channels:
+            if message.content.startswith('https://www.d') or message.content.startswith('http://www.d'):
+                if message.content[:19] != 'https://discord.com':
+                    user = message.author
+                    channel4 = await bot.fetch_channel(853832499745652736)
+                    role_muted = get(user.guild, id=757469299639189515)
+                    await user.add_roles(role_muted)
+                    await channel4.send(f'Potential scammer muted, Mods, Please check -----> {user.name} id= {user.id}')
+                    await message.delete()
     await bot.process_commands(message)
 
 
@@ -202,14 +214,6 @@ async def jules(ctx):
     await ctx.send(f'Added the role for {member.name}')
 
 # --------------------------------------------------------------------------------------------
-
-# @bot.command()
-# async def history(ctx):
-#     channel2 = bot.get_channel(864724149079244830)
-#     async for msg in ctx.channel.history(limit=None):
-#         embedHis=discord.Embed(title='Message History of Warn Channel',desription=f'{ctx.channel.name}')
-#         embedHis.add_field(name=f'Moderator:{ctx.author.name}',value=f"{msg.created_at} - {msg.author.display_name}: {msg.content}\n")
-#         await channel2.send(embed=embedHis)
 
 # -------------------------------------------------------------------------------------------
 
