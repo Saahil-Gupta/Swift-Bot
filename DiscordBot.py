@@ -97,7 +97,7 @@ async def on_message(message):
 
         # Embed sent to the user
         embedDM = discord.Embed(title='A new thread has been created', description='A staff member will be with you '
-                                                                                   'shortly.Please be patient and wait'
+                                                                                   'shortly.Please be patient and wait '
                                                                                    'for their response.'
                                 , color=0xFFC1E6)
         embedDM.add_field(name='Repeat', value='Please repeat your problem again. Send the first message again')
@@ -137,7 +137,7 @@ async def on_message(message):
             await guild.create_text_channel(name=str(message.author.id), overwrites=overwrites)
             # category = category)
             await channel2.send(embed=embedCha)
-            await channel2.send(f'{role_discordmod.mention} A new Modmail Channel has been created')
+            await channel2.send(f'A new Modmail Channel has been created')
         elif channel is not None:
             await channel.send(embed=embedMod)
             await channel.send(embed=embedVar)
