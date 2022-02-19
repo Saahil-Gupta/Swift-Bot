@@ -76,7 +76,7 @@ async def ping(ctx):
 async def on_message(message):
     if message.author == bot.user:
         return
-    if isinstance(message.channel, DMChannel):      #MODMAIL STARTS
+    if message.guild is None:      #MODMAIL STARTS
         guild = bot.get_guild(748798206816813117)
         channels = await guild.fetch_channels()
         channel2 = bot.get_channel(844527629057916928)  # for modmail log
