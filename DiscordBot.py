@@ -117,7 +117,7 @@ async def on_message(message):
                                                                                'characters', color=0x00FF00)
 
         overwrites = {
-            guild.default_role: discord.PermissionOverwrite(view_channel=False),
+            guild.default_role: discord.PermissionOverwrite(view_channel=False),   # Different roles for modmail
             guild.me: discord.PermissionOverwrite(read_messages=True),
             role_wicksters: discord.PermissionOverwrite(view_channel=False),
             role_3000: discord.PermissionOverwrite(view_channel=False),
@@ -125,7 +125,7 @@ async def on_message(message):
             role_trial: discord.PermissionOverwrite(view_channel=True),
             role_admin: discord.PermissionOverwrite(view_channel=True)
         }
-        # Embed to be sent to modmail log when a new channel si created
+        # Embed to be sent to modmail log when a new channel is created
         embedCha = discord.Embed(title='🎐A new Channel was created🎐', decription=message.author.id, color=0xFFC1E6)
         embedCha.set_author(name=message.author.display_name, icon_url=message.author.avatar_url)
         embedCha.set_thumbnail(url=bot.user.avatar_url)
@@ -138,10 +138,11 @@ async def on_message(message):
             # category = category)
             await channel2.send(embed=embedCha)
             await channel2.send(f'A new Modmail Channel has been created')
-        elif channel is not None:
+            await channel2.send(f'First message :- {message}')  # Sends the first message in the mod logs channel
+        elif channel is not None:   # Creates the channel
             await channel.send(embed=embedMod)
             await channel.send(embed=embedVar)
-        if len(message.attachments) > 0:
+        if len(message.attachments) > 0: # Sends the attachment as a link
             await channel.send(str(message.attachments))
     #Modmail Ends
     channel3 = await bot.fetch_channel(842712964909629460)
@@ -168,7 +169,8 @@ async def on_message(message):
                 await message.add_reaction(discord.utils.get(bot.emojis, id=842770280769388635))
         # await channel.send(embed=embedVar)
 
-    #Start of Anti-phishing code
+    #Start of Anti-phishing code  
+    # WORK IN PROGRESS
         elif message.channel.id in whitelist_channels:
             if message.content.startswith('https://www.d') or message.content.startswith('http://www.d'):
                 if message.content[:19] != 'https://discord.com':
