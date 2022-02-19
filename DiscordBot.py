@@ -130,10 +130,10 @@ async def on_message(message):
         embedCha.set_author(name=message.author.display_name, icon_url=message.author.avatar_url)
         embedCha.set_thumbnail(url=bot.user.avatar_url)
         embedCha.add_field(name='Mods please help the above mentioned person. The ID of the person is given below', value=message.author.id)
-
+        authorid = message.author.id
         if channel is None:
             await message.author.send(embed=embedDM)
-            await guild.create_text_channel(name=str(message.author.id), overwrites=overwrites)
+            await guild.create_text_channel(name=str(authorid), overwrites=overwrites)
             # category = category)
             await channel2.send(f'First message :- {message}')  # Sends the first message in the mod logs channel
             await channel2.send(embed=embedCha)
