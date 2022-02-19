@@ -136,9 +136,9 @@ async def on_message(message):
 
             await guild.create_text_channel(name=str(message.author.id), overwrites=overwrites)
             # category = category)
+            await channel2.send(f'First message :- {message}')  # Sends the first message in the mod logs channel
             await channel2.send(embed=embedCha)
             await channel2.send(f'A new Modmail Channel has been created')
-            await channel2.send(f'First message :- {message}')  # Sends the first message in the mod logs channel
         elif channel is not None:   # Creates the channel
             await channel.send(embed=embedMod)
             await channel.send(embed=embedVar)
