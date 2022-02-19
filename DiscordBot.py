@@ -203,6 +203,10 @@ async def close(ctx, channel: discord.TextChannel):
     await channel.send(embed=mbed)
     await ctx.channel.delete()
 
+@bot.command()
+async def id(ctx, user: ctx.author):
+    await ctx.channel.send(user.id)
+    
 
 @bot.command(aliases=['Jules'])
 async def jules(ctx):
