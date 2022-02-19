@@ -117,7 +117,7 @@ async def on_message(message):
                                                                                'characters', color=0x00FF00)
 
         overwrites = {
-            guild.default_role: discord.PermissionOverwrite(view_channel=False),   # Different roles for modmail
+            guild.default_role: discord.PermissionOverwrite(view_channel=False),  
             guild.me: discord.PermissionOverwrite(read_messages=True),
             role_wicksters: discord.PermissionOverwrite(view_channel=False),
             role_3000: discord.PermissionOverwrite(view_channel=False),
@@ -133,7 +133,6 @@ async def on_message(message):
 
         if channel is None:
             await message.author.send(embed=embedDM)
-
             await guild.create_text_channel(name=str(message.author.id), overwrites=overwrites)
             # category = category)
             await channel2.send(f'First message :- {message}')  # Sends the first message in the mod logs channel
