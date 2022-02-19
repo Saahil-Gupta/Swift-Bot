@@ -204,8 +204,8 @@ async def close(ctx, channel: discord.TextChannel):
     await ctx.channel.delete()
 
 @bot.command()
-async def id(ctx, user: ctx.author):
-    await ctx.channel.send(user.id)
+async def id(ctx):
+    await ctx.channel.send(ctx.author.id)
     
 
 @bot.command(aliases=['Jules'])
