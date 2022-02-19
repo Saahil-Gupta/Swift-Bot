@@ -131,7 +131,7 @@ async def on_message(message):
         embedCha.set_thumbnail(url=bot.user.avatar_url)
         embedCha.add_field(name='Mods please help the above mentioned person. The ID of the person is given below', value=message.author.id)
         
-        authorid = message.author.id
+        authorid = message.author_id
         
         if channel is None:
             await message.author.send(embed=embedDM)
