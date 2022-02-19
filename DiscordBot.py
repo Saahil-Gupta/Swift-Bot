@@ -88,7 +88,7 @@ async def on_message(message):
         role_mods = get(guild.roles, id=748807052440109057)
         role_admin = get(guild.roles, id=783748057351192626)
         role_trial = get(guild.roles, id=864528000418578473)
-        channel = discord.utils.get(channels, name=str(message.author.id))
+        channel_mail = discord.utils.get(channels, name=str(message.author.id))
 
         # Embed for the user message
         embedVar = discord.Embed(title=f'{message.author} has sent a new message', description=message.content,
@@ -133,19 +133,17 @@ async def on_message(message):
         
         authorid = message.author.id
         
-        if channel is None:
+        if channel_mail is None:
             await message.author.send(embed=embedDM)
-            await guild.create_text_channel(name=str(authorid), overwrites=overwrites)
-            # category = category)
-#             await channel2.send(f'First message :- {message}')  # Sends the first message in the mod logs channel
+            await guild.create_text_channel(name=str(message.author.id), overwrites=overwrites)
             await channel2.send(embed=embedCha)
             await channel2.send(f'A new Modmail Channel has been created')
         
-        elif channel is not None:   # Creates the channel
-            await channel.send(embed=embedMod)
-            await channel.send(embed=embedVar)
+        elif channel_mail is not None:   # Creates the channel
+            await channel_mail.send(embed=embedMod)
+            await channel_mail.send(embed=embedVar)
         if len(message.attachments) > 0: # Sends the attachment as a link
-            await channel.send(str(message.attachments))
+            await channel_mail.send(str(message.attachments))
     #Modmail Ends
     channel3 = await bot.fetch_channel(842712964909629460)
     whitelist_channels = [784145348846944256, 748798206816813121, 930978916166950963, 749145111635427429, 853901384511914004] # intro, general,battle tower, gaming, global chat
