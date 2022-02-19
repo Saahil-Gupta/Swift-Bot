@@ -130,14 +130,17 @@ async def on_message(message):
         embedCha.set_author(name=message.author.display_name, icon_url=message.author.avatar_url)
         embedCha.set_thumbnail(url=bot.user.avatar_url)
         embedCha.add_field(name='Mods please help the above mentioned person. The ID of the person is given below', value=message.author.id)
+        
         authorid = message.author.id
+        
         if channel is None:
             await message.author.send(embed=embedDM)
             await guild.create_text_channel(name=str(authorid), overwrites=overwrites)
             # category = category)
-            await channel2.send(f'First message :- {message}')  # Sends the first message in the mod logs channel
+#             await channel2.send(f'First message :- {message}')  # Sends the first message in the mod logs channel
             await channel2.send(embed=embedCha)
             await channel2.send(f'A new Modmail Channel has been created')
+        
         elif channel is not None:   # Creates the channel
             await channel.send(embed=embedMod)
             await channel.send(embed=embedVar)
@@ -168,17 +171,17 @@ async def on_message(message):
                 await message.add_reaction(discord.utils.get(bot.emojis, id=842770280769388635))
         # await channel.send(embed=embedVar)
 
-    #Start of Anti-phishing code  
-    # WORK IN PROGRESS
-        elif message.channel.id in whitelist_channels:
-            if message.content.startswith('https://www.d') or message.content.startswith('http://www.d'):
-                if message.content[:19] != 'https://discord.com':
-                    user = message.author
-                    channel4 = await bot.fetch_channel(853832499745652736)
-                    role_muted = get(user.guild, id=757469299639189515)
-                    await user.add_roles(role_muted)
-                    await channel4.send(f'Potential scammer muted, Mods, Please check -----> {user.name} id= {user.id}')
-                    await message.delete()
+#     #Start of Anti-phishing code  
+#     # WORK IN PROGRESS
+#         elif message.channel.id in whitelist_channels:
+#             if message.content.startswith('https://www.d') or message.content.startswith('http://www.d'):
+#                 if message.content[:19] != 'https://discord.com':
+#                     user = message.author
+#                     channel4 = await bot.fetch_channel(853832499745652736)
+#                     role_muted = get(user.guild, id=757469299639189515)
+#                     await user.add_roles(role_muted)
+#                     await channel4.send(f'Potential scammer muted, Mods, Please check -----> {user.name} id= {user.id}')
+#                     await message.delete()
     await bot.process_commands(message)
 
 
