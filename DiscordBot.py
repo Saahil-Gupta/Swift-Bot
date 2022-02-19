@@ -23,7 +23,7 @@ async def on_ready():
     msg1.start()
 
 
-@tasks.loop(hours=12)
+@tasks.loop(hours=18)
 async def msg1():
     message_channel = bot.get_channel(748798206816813121) # • 748798206816813121
     pink_heart = discord.utils.get(bot.emojis, id=874013519203409961)
@@ -131,7 +131,7 @@ async def on_message(message):
         embedCha.set_thumbnail(url=bot.user.avatar_url)
         embedCha.add_field(name='Mods please help the above mentioned person. The ID of the person is given below', value=message.author.id)
         
-        authorid = message.author_id
+        authorid = message.author.id
         
         if channel is None:
             await message.author.send(embed=embedDM)
