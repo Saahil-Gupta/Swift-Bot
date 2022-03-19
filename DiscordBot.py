@@ -9,8 +9,8 @@ from discord.ext import tasks
 
 
 intents = discord.Intents.default()
-intents.members = True
 intents.message = True
+
 intents = intents.all()
 
 
