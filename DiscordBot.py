@@ -10,7 +10,6 @@ from discord.ext import tasks
 
 intents = discord.Intents.default()
 intents.members = True
-intents = intents.all()
 intents.message_content = True
 bot = commands.Bot(command_prefix='!jb', intents=intents)
 
