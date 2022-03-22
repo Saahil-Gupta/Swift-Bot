@@ -10,7 +10,6 @@ from discord.ext import tasks
 
 intents = discord.Intents.default()
 intents.message_content = True
-intents.member = True
 intents = intents.all()
 
 
