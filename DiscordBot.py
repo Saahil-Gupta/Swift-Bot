@@ -2,11 +2,8 @@ import discord
 import os
 from discord.ext import commands
 from discord.utils import get
-from discord import Embed, DMChannel, Role, Attachment
-from discord.abc import GuildChannel, _Overwrites
-import asyncio
 from discord.ext import tasks
-
+from discord import app_commands
 
 intents = discord.Intents.default()
 intents.message_content = True
@@ -14,7 +11,7 @@ intents = intents.all()
 
 
 bot = commands.Bot(command_prefix='!jb', intents=intents)
-
+tree = app_commands.CommandTree(bot)
 # ----------------------------------------------------------------------------------------------
 
 
@@ -27,28 +24,28 @@ async def on_ready():
 
 @tasks.loop(hours=18)
 async def msg1():
-    message_channel = bot.get_channel(748798206816813121) # • 748798206816813121
+    message_channel = bot.get_channel(748798206816813121)   # • 748798206816813121
     pink_heart = discord.utils.get(bot.emojis, id=874013519203409961)
     pink_butterfly = discord.utils.get(bot.emojis, id=856262693241749525)
     blank_emoji = discord.utils.get(bot.emojis, id=836980830253219891)
-    embedAuto = discord.Embed(title=f'{pink_butterfly} __Sub Reminder__',description=f'\n{blank_emoji}{pink_heart} TYSM for all the support!\n\n'
+    embedAuto = discord.Embed(title=f'{pink_butterfly} __Sub Reminder__', description=f'\n{blank_emoji}{pink_heart} TYSM for all the support!\n\n'
                                     f"{blank_emoji}・ Sub to [Julia Burch](https://www.youtube.com/channel/UCcRKWdzb5P9jsswSHmuq9PA)\n"
                                     f"{blank_emoji}・ Sub to [Julia Burch Shorts](https://www.youtube.com/channel/UCpaxSWzKLtS3uY4Gkp-_SOQ)\n"
-                                    f"{blank_emoji}・ Sub to [Julia Burch Livestreams](https://www.youtube.com/channel/UCigOCMIzDMXGJXtGOQZv6xA)",color=0xFFC1E6)
+                                    f"{blank_emoji}・ Sub to [Julia Burch Livestreams](https://www.youtube.com/channel/UCigOCMIzDMXGJXtGOQZv6xA)", color=0xFFC1E6)
     embedAuto.set_thumbnail(url="https://images-ext-2.discordapp.net/external/otj151m1XhrpCs_OUT2SIhBHTXpa4P9hLtZjUOQEWLI/%3Fv%3D1/https/cdn.discordapp.com/emojis/850562956877365298.gif")
     await message_channel.send(embed=embedAuto)
 
 
 @bot.event
 async def on_member_join(member):
-    channel = bot.get_channel(838451293109747762) # 838451293109747762
-    roles = bot.get_channel(859878377209200681) # 859878377209200681
-    rules = bot.get_channel(748798463919259769) # 748798463919259769
+    channel = bot.get_channel(838451293109747762)   # 838451293109747762
+    roles = bot.get_channel(859878377209200681)     # 859878377209200681
+    rules = bot.get_channel(748798463919259769)     # 748798463919259769
     emoji = discord.utils.get(bot.emojis, id=836980830253219891)
     pink_heart = discord.utils.get(bot.emojis, id=836995830942662686)
-    e = discord.Embed(title='',description=f'{emoji} {pink_heart}・ __**Plz check**__\n'
+    e = discord.Embed(title='', description=f'{emoji} {pink_heart}・ __**Plz check**__\n'
     f'{emoji}{emoji} ・{roles.mention}\n'
-    f'{emoji}{emoji} ・{rules.mention}',color=0xFFC0CB) #・
+    f'{emoji}{emoji} ・{rules.mention}',  color=0xFFC0CB)
     e.set_thumbnail(url='https://images-ext-2.discordapp.net/external/RxmlLh_fCbRpK1O-XDXcLh0I6736wjBBr9WgK-6z5Lk/https/media.discordapp.net/attachments/748798605489340436/857989287613038622/16246309691327537014753031597027.gif')
     e.set_author(name=member.name, icon_url=member.avatar_url)
     await channel.send(f'Welcome to the server {member.mention}!', embed=e)
@@ -56,17 +53,17 @@ async def on_member_join(member):
 
 @bot.command()
 async def load(ctx, extension):
-    bot.load_extension(f'cogs.{extension}')
+    await bot.load_extension(f'cogs.{extension}')
 
 
 @bot.command()
 async def unload(ctx, extension):
-    bot.unload_extension(f'cogs.{extension}')
+    await bot.unload_extension(f'cogs.{extension}')
 
 
 for filename in os.listdir('./cogs'):
     if filename.endswith('.py'):
-        bot.load_extension(f'cogs.{filename[:-3]}')
+        await bot.load_extension(f'cogs.{filename[:-3]}')
 
 
 @bot.command()
@@ -78,7 +75,7 @@ async def ping(ctx):
 async def on_message(message):
     if message.author == bot.user:
         return
-    if message.guild is None:      #MODMAIL STARTS
+    if message.guild is None:      # MODMAIL STARTS
         guild = bot.get_guild(748798206816813117)
         channels = await guild.fetch_channels()
         channel2 = bot.get_channel(844527629057916928)  # for modmail log
@@ -100,7 +97,7 @@ async def on_message(message):
         # Embed sent to the user
         embedDM = discord.Embed(title='A new thread has been created', description='A staff member will be with you '
                                                                                    'shortly.Please be patient and wait '
-                                                                                   'for their response.'
+                                                                                   'for their response. '
                                 , color=0xFFC1E6)
         embedDM.add_field(name='Repeat', value='Please repeat your problem again. Send the first message again')
         embedDM.add_field(name='Image', value='To send an image, \n 1) send the image in this chat.\n 2) '
@@ -128,9 +125,9 @@ async def on_message(message):
             role_admin: discord.PermissionOverwrite(view_channel=True)
         }
         # Embed to be sent to modmail log when a new channel is created
-        embedCha = discord.Embed(title='🎐A new Channel was created🎐', decription=message.author.id, color=0xFFC1E6)
+        embedCha = discord.Embed(title='🎐A new Channel was created🎐', description=message.author.id, color=0xFFC1E6)
         embedCha.set_author(name=message.author.display_name, icon_url=message.author.avatar_url)
-        embedCha.set_thumbnail(url=bot.user.avatar_url)
+        embedCha.set_thumbnail(url=bot.user.avatar.url)
         embedCha.add_field(name='Mods please help the above mentioned person. The ID of the person is given below', value=message.author.id)
         
         authorid = message.author.id
@@ -148,40 +145,11 @@ async def on_message(message):
             await channel_mail.send(str(message.attachments))
     #Modmail Ends
     channel3 = await bot.fetch_channel(842712964909629460)
-    whitelist_channels = [784145348846944256, 748798206816813121, 930978916166950963, 749145111635427429, 853901384511914004] # intro, general,battle tower, gaming, global chat
     if isinstance(channel3, discord.abc.GuildChannel):
-        if message.channel.id == 842712964909629460: #Youtube suggestions, Football in SBt or 875017721207746640
-            if message.content.startswith('+game'):    #Game suggestons
-                await message.add_reaction(discord.utils.get(bot.emojis, id=842770232266850334))
-                await message.add_reaction(discord.utils.get(bot.emojis, id=842770280769388635))
-                await message.add_reaction(discord.utils.get(bot.emojis, id=817105035087052810))
-        if message.channel.id == 842713610950410240:
-            if message.content.startswith("+feedback"): #feedback
-                await message.add_reaction(discord.utils.get(bot.emojis, id=842770232266850334))
-                await message.add_reaction(discord.utils.get(bot.emojis, id=842770280769388635))
-                await message.add_reaction(discord.utils.get(bot.emojis, id=817105035087052810))
-        if message.channel.id == 755062206697308201:
-            if message.content.startswith('+suggest'): #youtube suggestions channel
-                embe = discord.Embed(color=0x7393B3)
-                embe.set_author(name=message.author, icon_url=f'{message.author.avatar_url}')
-                embe.add_field(name='New suggestion!', value=f'{message.content[8:]}')
-                await message.delete()
-                await message.channel.send(embed=embe)
-                await message.add_reaction(discord.utils.get(bot.emojis, id=842770232266850334))
-                await message.add_reaction(discord.utils.get(bot.emojis, id=842770280769388635))
-        # await channel.send(embed=embedVar)
-
-#     #Start of Anti-phishing code  
-#     # WORK IN PROGRESS
-#         elif message.channel.id in whitelist_channels:
-#             if message.content.startswith('https://www.d') or message.content.startswith('http://www.d'):
-#                 if message.content[:19] != 'https://discord.com':
-#                     user = message.author
-#                     channel4 = await bot.fetch_channel(853832499745652736)
-#                     role_muted = get(user.guild, id=757469299639189515)
-#                     await user.add_roles(role_muted)
-#                     await channel4.send(f'Potential scammer muted, Mods, Please check -----> {user.name} id= {user.id}')
-#                     await message.delete()
+        if message.channel.id == 955616148374814761:
+            await message.add_reaction(discord.utils.get(bot.emojis, id=842770232266850334))
+            await message.add_reaction(discord.utils.get(bot.emojis, id=842770280769388635))
+            await message.add_reaction(discord.utils.get(bot.emojis, id=817105035087052810))
     await bot.process_commands(message)
 
 
@@ -206,10 +174,6 @@ async def close(ctx, channel: discord.TextChannel):
     await channel.send(embed=mbed)
     await ctx.channel.delete()
 
-@bot.command()
-async def id(ctx):
-    await ctx.channel.send(ctx.author.id)
-    
 
 @bot.command(aliases=['Jules'])
 async def jules(ctx):
