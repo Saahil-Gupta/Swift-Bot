@@ -11,7 +11,6 @@ intents = intents.all()
 
 
 bot = commands.Bot(command_prefix='!jb', intents=intents)
-tree = app_commands.CommandTree(bot)
 # ----------------------------------------------------------------------------------------------
 
 
