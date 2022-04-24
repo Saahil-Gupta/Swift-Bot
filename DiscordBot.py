@@ -46,7 +46,7 @@ async def on_member_join(member):
     f'{emoji}{emoji} ・{roles.mention}\n'
     f'{emoji}{emoji} ・{rules.mention}',  color=0xFFC0CB)
     e.set_thumbnail(url='https://images-ext-2.discordapp.net/external/RxmlLh_fCbRpK1O-XDXcLh0I6736wjBBr9WgK-6z5Lk/https/media.discordapp.net/attachments/748798605489340436/857989287613038622/16246309691327537014753031597027.gif')
-    e.set_author(name=member.name, icon_url=member.avatar_url)
+    e.set_author(name=member.name, icon_url=member.avatar.url)
     await channel.send(f'Welcome to the server {member.mention}!', embed=e)
 
 
@@ -91,7 +91,7 @@ async def on_message(message):
         # Embed for the user message
         embedVar = discord.Embed(title=f'{message.author} has sent a new message', description=message.content,
                                  color=0xFFC1E6)
-        embedVar.set_author(name=message.author.display_name, icon_url=message.author.avatar_url)
+        embedVar.set_author(name=message.author.display_name, icon_url=message.author.avatar.url)
 
         # Embed sent to the user
         embedDM = discord.Embed(title='A new thread has been created', description='A staff member will be with you '
@@ -125,7 +125,7 @@ async def on_message(message):
         }
         # Embed to be sent to modmail log when a new channel is created
         embedCha = discord.Embed(title='🎐A new Channel was created🎐', description=message.author.id, color=0xFFC1E6)
-        embedCha.set_author(name=message.author.display_name, icon_url=message.author.avatar_url)
+        embedCha.set_author(name=message.author.display_name, icon_url=message.author.avatar.url)
         embedCha.set_thumbnail(url=bot.user.avatar.url)
         embedCha.add_field(name='Mods please help the above mentioned person. The ID of the person is given below', value=message.author.id)
         
