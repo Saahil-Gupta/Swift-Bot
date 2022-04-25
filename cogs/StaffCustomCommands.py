@@ -107,5 +107,5 @@ class StaffCustomCommands(commands.Cog):
     async def Pilotsnow(self, ctx):
         await ctx.send("She is Fun and Intoxicating. Beware !")
 
-def setup(swift):
-    swift.add_cog(StaffCustomCommands(swift))
+async def setup(swift):
+    await swift.add_cog(StaffCustomCommands(swift))

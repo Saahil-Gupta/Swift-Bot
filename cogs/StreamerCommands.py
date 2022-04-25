@@ -131,5 +131,5 @@ class StaffCommands(commands.Cog):
     async def dolphinmurder2(self, ctx):
         await ctx.send("https://clips.twitch.tv/DeadAstuteKimchiOhMyDog-Fq8ouAqci6X1xJE7")
 
-def setup(taylor):
-    taylor.add_cog(StaffCommands(taylor))
+async def setup(taylor):
+    await taylor.add_cog(StaffCommands(taylor))

@@ -1,5 +1,6 @@
 import discord
 import os
+import asyncio
 from discord.ext import commands
 from discord.utils import get
 from discord.ext import tasks
@@ -12,7 +13,16 @@ intents = intents.all()
 
 bot = commands.Bot(command_prefix='!jb', intents=intents)
 # ----------------------------------------------------------------------------------------------
+async def main():
+    async with bot:
+        await load_extensions()
 
+asyncio.run(main())
+
+async def load_extensions():
+    for filename in os.listdir("./cogs"):
+        if filename.endswith(".py"):
+            await bot.load_extension(f"cogs.{filename[:-3]}")
 
 @bot.event
 async def on_ready():
@@ -51,18 +61,8 @@ async def on_member_join(member):
 
 
 @bot.command()
-async def load(ctx, extension):
-    await bot.load_extension(f'cogs.{extension}')
-
-
-@bot.command()
 async def unload(ctx, extension):
     await bot.unload_extension(f'cogs.{extension}')
-
-
-for filename in os.listdir('./cogs'):
-    if filename.endswith('.py'):
-        bot.load_extension(f'cogs.{filename[:-3]}')
 
 
 @bot.command()

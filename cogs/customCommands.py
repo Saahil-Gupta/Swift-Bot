@@ -62,5 +62,5 @@ class Custom(commands.Cog):
         await ctx.send("Follow Julia on TikTok! https://tiktok.com/@julia.burch?lang=eng")
 
 
-def setup(client):
-    client.add_cog(Custom(client))
+async def setup(client):
+    await client.add_cog(Custom(client))

@@ -100,5 +100,5 @@ class lockdown(commands.Cog):
         await vc.set_permissions(role_wicksters,view_channel=True)
         await ctx.send('Unlock Completed')
 
-def setup(mercedes):
-    mercedes.add_cog(lockdown(mercedes))
+async def setup(mercedes):
+    await mercedes.add_cog(lockdown(mercedes))

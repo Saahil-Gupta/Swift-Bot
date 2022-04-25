@@ -46,5 +46,5 @@ class restrictUser(commands.Cog):
         await channel2.send(embed=embedUnrestrict)
 
 
-def setup(black):
-    black.add_cog(restrictUser(black))
+async def setup(black):
+    await black.add_cog(restrictUser(black))

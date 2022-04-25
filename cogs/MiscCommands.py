@@ -44,5 +44,5 @@ class MiscCommands(commands.Cog):
     async def whereislauren(self, ctx):
         await ctx.send("its always where is lauren but never how is lauren FeelsBadMan")
 
-def setup(sheeran):
-    sheeran.add_cog(MiscCommands(sheeran))
+async def setup(sheeran):
+    await sheeran.add_cog(MiscCommands(sheeran))

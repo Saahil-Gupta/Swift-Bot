@@ -57,7 +57,7 @@ class warnChannel(commands.Cog):
     async def warnChannel_error(self, ctx, error):
         guild = ctx.guild
         channels = await guild.fetch_channels()
-        channel2 = bot.get_channel(844527629057916928)
+        channel2 = client.get_channel(844527629057916928)
         if isinstance(error, commands.MissingPermissions):
             await ctx.send(f'{ctx.message.author.mention} You do not have the permission to run that command! :red_circle:')
         elif isinstance(error, commands.MissingRequiredArgument):
@@ -70,5 +70,5 @@ class warnChannel(commands.Cog):
             print(error)
 
 
-def setup(darth):
-    darth.add_cog(warnChannel(darth))
+async def setup(darth):
+    await darth.add_cog(warnChannel(darth))

@@ -59,5 +59,5 @@ class banChannel(commands.Cog):
         await channel2.send(embed=embedUnban)
 
 
-def setup(ferrari):
-    ferrari.add_cog(banChannel(ferrari))
+async def setup(ferrari):
+    await ferrari.add_cog(banChannel(ferrari))

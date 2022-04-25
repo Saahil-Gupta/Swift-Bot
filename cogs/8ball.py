@@ -37,5 +37,5 @@ class eightball(commands.Cog):
                      'Very doubtful. ']
         await ctx.send(f'Questions: {question}\nAnswer: {random.choice(responses)}')
 
-def setup(bots):
-    bots.add_cog(eightball(bots))
+async def setup(bots):
+    await bots.add_cog(eightball(bots))
